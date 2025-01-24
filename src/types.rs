@@ -3,13 +3,24 @@
 use std::fmt::Display;
 
 use colored::Colorize;
-use display_tree::*;
 
-#[derive(DisplayTree)]
 pub struct Project {
-    name: String,
-    description: String,
     primary: Task,
+}
+
+impl Project {
+    pub fn new(name: String, description: String) -> Self {
+        Project {
+            primary: Task {
+                name: name,
+                description: description,
+                complete: false,
+                blocking: false,
+                variant: TaskType::All,
+                children: vec![],
+            },
+        }
+    }
 }
 
 // Types of task.
@@ -17,10 +28,19 @@ pub struct Project {
 pub enum TaskType {
     /// All of the task's children must be completed for the task itself to be completed.
     /// This is suitable for most use cases.
-    And,
-    /// Any: Any of the task's children must be completed for the task itself to be completed.
+    All,
+    /// Any of the task's children must be completed for the task itself to be completed.
     /// This is useful for if there are multiple ways to complete the task and only one needs to succeed.
     Any,
+}
+
+impl Display for TaskType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "{}", match self {
+            Self::All => "All",
+            Self::Any => "Any",
+        })
+    }
 }
 
 #[derive(PartialEq, Eq, Debug)]
@@ -66,7 +86,8 @@ impl Task {
         }
     }
     pub fn display_long(&self) -> String {
-        format!("{}\n\tStatus: {:?}\n\tDescription: {}\n\tVariant: {:?}\n\tChildren: {}",
+        format!(
+            "{}\n\tStatus: {:?}\n\tDescription: {}\n\tVariant: {:?}\n\tChildren: {}",
             self.display_short(),
             self.status(),
             self.description,
@@ -85,7 +106,7 @@ impl Task {
     /// Returns whether it is possible to complete the task.
     pub fn ready(&self) -> bool {
         match self.variant {
-            TaskType::And => {
+            TaskType::All => {
                 // And type tasks are completable when all their children are complete.
                 self.children.iter().all(|child| child.complete())
             }
