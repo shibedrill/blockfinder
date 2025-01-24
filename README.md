@@ -13,7 +13,7 @@ time-wasters as the project drags on.
 
 ## What is a Gantt tree?
 
-A Gatt tree is a way of organizing goals or tasks on a project. A task may
+A Gantt tree is a way of organizing goals or tasks on a project. A task may
 depend on several sub-tasks, which each may also have sub-tasks, and so on.
 Turtles all the way down. So how do you locate items that have no
 dependencies, and thus, can be completed? You use graph theory and recursion!
