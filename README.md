@@ -1,7 +1,7 @@
 
 # blockfinder
 
-A Gatt tree in the CLI, for managing complex projects without the pressure of
+A Gantt tree in the CLI, for managing complex projects without the pressure of
 timeframes or deadlines. Simply define a project, and blockfinder will locate
 either blocking or actionable tasks at every step.
 
@@ -11,7 +11,7 @@ tasks. The design goal here is to simply organize tasks to reduce confusion
 over what to do next, and to track which steps or branches arethe biggest
 time-wasters as the project drags on.
 
-## What is a Gatt tree?
+## What is a Gantt tree?
 
 A Gatt tree is a way of organizing goals or tasks on a project. A task may
 depend on several sub-tasks, which each may also have sub-tasks, and so on.
